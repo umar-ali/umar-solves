@@ -1,4 +1,5 @@
-#MEXanized Arry
+#!/usr/bin/env python3
+#MEXanized Array
 
 def solve(n, k, x):
    if n < k or k-1 > x: return -1
