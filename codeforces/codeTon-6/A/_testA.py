@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from A import solve
 import unittest
 
