@@ -1,7 +1,10 @@
+from collections import namedtuple
 ILL = "ILLEGAL"
+mem_block = namedtuple("mem_block",["loc", "size"])
 
 def solve(m, commands):
-    id = 0
+    addr_mapper:dict[int,mem_block] = dict() #map identifier to space it takes
+    curr_id = 0
     for cmd in commands:
         if cmd is "defragment":
             pass
