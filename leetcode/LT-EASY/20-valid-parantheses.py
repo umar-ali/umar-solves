@@ -1,29 +1,20 @@
 
 def solve(s: str) -> bool:
-    # left_curl, left_paran, left_sqr = 0, 0, 0
+    stack = []
     brackets = {
-        "{":0,
-        "(":0,
-        "[":0
-    }
-    pairs = {
-        "}":"{",
-        ")":"(",
-        "]":"["
+        "[":"]",
+        "{":"}",
+        "(":")",
     }
     for c in s:
         if c in brackets:
-            brackets[c] += 1 
-        elif brackets[pairs[c]] >= 1:
-            brackets[pairs[c]] -= 1
+            stack.append(c)
+        elif len(stack) > 0 and brackets[stack[-1]] == c:
+            stack.pop()
         else:
             return False
-    return all([ v == 0 for v in brackets.values()])
-
-
-
-
-#TODO submit to lt
+    return len(stack) == 0
+            
 if __name__ == "__main__":
     test_cases = {
         "()": True,
@@ -32,6 +23,7 @@ if __name__ == "__main__":
         "({})": True,
         "(((((":False,
         "}":False,
+        "([)]":False, #Open brackets must be closed in the correct order.
     }
     for i, tc in enumerate(test_cases, 1):
         sol = solve(tc)
