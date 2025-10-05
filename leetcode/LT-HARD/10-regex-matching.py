@@ -1,33 +1,23 @@
 
+
 def isMatch(s:str, p:str) -> bool:
-    pi = 0
-    sj = 0
-    
-    while pi < len(p) and sj < len(s):
-        if p[pi] == ".":
-            sj+=1
-            pi+=1
-            continue
 
-        if p[pi] == "*":
-            if (p[pi-1] == s[sj] or p[pi-1] == "."):
-                sj+=1
-                continue
-            else:
-                pi+=1
+    # if p is empty, then result is True if s i empty, otherwise False
+    if not p:
+        return not s
 
-        if p[pi] != s[sj]:
-            return False
-        else:
-            sj += 1
-            pi += 1
+    #Checking a char match in pattern
+    #f_match is true when s is non-empty and p[0] is either s[0] or '.' 
+    f_match = bool(s) and p[0] in {s[0], '.'}
 
-    return True
-
-
-
+    if len(p) >= 2 and p[1] == '*':
+        return (isMatch(s, p[2:]) # matching pattern succeeding *
+                or f_match and isMatch(s[1:], p)) #for matching <c>*, f_match matched one and let's match s[1..sn]
+    else:
+        return f_match and isMatch(s[1:], p[1:]) #Handling all other cases.. i.e., we know f_match(0,0) what about [1..sn], [1..pn]
 
 if __name__ == "__main__":
-    print(isMatch("aa", "a"))
-    print(isMatch("aa", "b*"))
-    print(isMatch("ab", ".*"))
+    print(isMatch("aa", "a"))   #False
+    print(isMatch("aa", "b*"))  #False
+    print(isMatch("ab", ".*"))  #True
+    print(isMatch("abcccd", "abc*d"))  #True
