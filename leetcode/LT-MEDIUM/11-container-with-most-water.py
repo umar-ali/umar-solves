@@ -1,17 +1,20 @@
 
 
 def maxArea(height:list[int]) -> int:
-    m = 0
-    last = -1
-    for i in range(len(height)):
-        if height[i] > last:
-            for j in range(i+1, len(height)):
-                m = max(m, min(height[i], height[j]) * (j - i))
-            last = height[i]
-    return m
+    i = 0
+    j = len(height) -1
+    mx = 0
+    while i < j:
+        mx = max(mx, min(height[i], height[j]) * (j - i))
+        if height[i] < height[j]:
+            i+=1
+        else:
+            j-=1
 
-
-
+    return mx
+       
+        
+    
 
 if __name__ == "__main__":
     print(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]))
