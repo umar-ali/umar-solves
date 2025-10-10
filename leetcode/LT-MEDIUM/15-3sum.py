@@ -25,23 +25,32 @@
 from collections import defaultdict
 def threeSum(nums:list[int]) -> list[list[int]]:
     n = len(nums)
+    nums.sort()
     res = []
-    sum2 = defaultdict(list)
-    for i in range(n):
-        for j in range(i+1, n):
-            sum2[nums[i]+nums[j]].append((i,j))
-    print(sum2)
-    for i in range(n):
-        op = nums[i] * -1
-        if op in sum2:
-            pairs = sum2[op]
-            for j in range(len(pairs)):
-                if i not in pairs[j]:
-                    r = sorted([nums[i], nums[pairs[j][0]], nums[pairs[j][1]]])
-                    if r not in res:
-                        res.append(r)
-    return res
 
+
+    for i in range(n-2):
+
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+
+        l = i+1
+        r = n-1
+        while l < r:
+            t = nums[i] + nums[l] + nums[r]
+            if t == 0:
+                res.append([nums[i] , nums[l] , nums[r]])
+                l += 1
+                r -= 1
+                while l < r and nums[l] == nums[l-1]: 
+                        l +=1 
+                while l < r and  nums[r] == nums[r+1]:
+                        r -= 1
+            elif t < 0:
+                l += 1
+            else:
+                r -= 1
+    return res
 
 if __name__ == "__main__":
     # print(Solution().threeSum([-1, 0, 1, 2, -1, -4])) #[[-1, 0, 1], [-1, -1, 2]]
