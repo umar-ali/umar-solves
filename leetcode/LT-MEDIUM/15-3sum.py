@@ -22,5 +22,38 @@
 #                  solution.append(sublist)
 #         return solution
 
+from collections import defaultdict
+def threeSum(nums:list[int]) -> list[list[int]]:
+    n = len(nums)
+    nums.sort()
+    res = []
+
+
+    for i in range(n-2):
+
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+
+        l = i+1
+        r = n-1
+        while l < r:
+            t = nums[i] + nums[l] + nums[r]
+            if t == 0:
+                res.append([nums[i] , nums[l] , nums[r]])
+                l += 1
+                r -= 1
+                while l < r and nums[l] == nums[l-1]: 
+                        l +=1 
+                while l < r and  nums[r] == nums[r+1]:
+                        r -= 1
+            elif t < 0:
+                l += 1
+            else:
+                r -= 1
+    return res
+
 if __name__ == "__main__":
     # print(Solution().threeSum([-1, 0, 1, 2, -1, -4])) #[[-1, 0, 1], [-1, -1, 2]]
+    # print(threeSum([-1, 0, 1, 2, -1, -4])) #[[-1, 0, 1], [-1, -1, 2]]
+    print(threeSum([2,-3,0,-2,-5,-5,-4,1,2,-2,2,0,2,-4,5,5,-10]))
+    # print(threeSum([0,0,0])) #[[-1, 0, 1], [-1, -1, 2]]
