@@ -9,7 +9,7 @@ def divide(dividend:int, divisor: int) -> int:
     #if both dividend and divisor are int, so their qoutient must be int i.e,. [-2**31 <= q 2**31 -1]
     #except if dividend is -2**31, and divisor -1 which result in 2**31, which is out of bound
     if dividend == -2**31 and divisor == -1:
-        return -2**31 - 1
+        return 2**31 - 1
     
     isNegative = (dividend < 0) ^ (divisor < 0)
 
