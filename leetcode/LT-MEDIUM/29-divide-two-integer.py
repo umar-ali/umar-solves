@@ -21,10 +21,15 @@ def divide(dividend:int, divisor: int) -> int:
     #until it becomes lesser than divisor
     #keep qoutient incrementing
     qoutient = 0
-    while divisor <= dividend:
-        dividend -= divisor
-        qoutient+=1
     
+    #bit manipulation
+    #total number of bits. as it is int 32 bit (positions 31...0)
+    for i in range(31, -1, -1):
+        u = divisor << i  
+        if dividend >= u:
+            dividend -= u
+            qoutient |= (1 << i) # set the ith bit of quotient
+   
     if isNegative:
         qoutient = (~qoutient) + 1
 
