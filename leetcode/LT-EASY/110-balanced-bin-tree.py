@@ -49,7 +49,7 @@ def height( root: Optional[TreeNode]) -> int:
     return 1 + max(l, r)
 
 def isBalanced(root: Optional[TreeNode]) -> bool:
-    return height(root) > 0
+    return height(root) > -1
 
 
 if __name__ == "__main__":
