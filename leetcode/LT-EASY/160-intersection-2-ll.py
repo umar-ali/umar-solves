@@ -64,7 +64,9 @@ def reverse(head: ListNode | None) -> ListNode | None:
 
 
 
-def getIntersectionNode(headA: ListNode | None, headB: ListNode | None) -> ListNode | None :
+def _get_intersection_node(headA: ListNode | None, headB: ListNode | None) -> ListNode | None :
+    # use floyd's cycle detection
+    # faster but modifies 
     if headA is None or headB is None:
         return None
 
@@ -93,7 +95,11 @@ def getIntersectionNode(headA: ListNode | None, headB: ListNode | None) -> ListN
             return slow
     return None
 
-def get_intersection_no_mod(headA: ListNode | None, headB: ListNode | None) -> ListNode | None :
+#TODO: find middle ground b/w two
+
+def get_intersection(headA: ListNode | None, headB: ListNode | None) -> ListNode | None :
+    #naive O(n x m) approach
+    #TLE
     if headA is None or  headB is None:
         return None
     
