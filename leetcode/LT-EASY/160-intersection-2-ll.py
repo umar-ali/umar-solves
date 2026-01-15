@@ -63,7 +63,6 @@ def reverse(head: ListNode | None) -> ListNode | None:
     return prev
 
 
-
 def _get_intersection_node(headA: ListNode | None, headB: ListNode | None) -> ListNode | None :
     # use floyd's cycle detection
     # faster but modifies 
@@ -97,7 +96,7 @@ def _get_intersection_node(headA: ListNode | None, headB: ListNode | None) -> Li
 
 #TODO: find middle ground b/w two
 
-def get_intersection(headA: ListNode | None, headB: ListNode | None) -> ListNode | None :
+def get_intersection_slow(headA: ListNode | None, headB: ListNode | None) -> ListNode | None :
     #naive O(n x m) approach
     #TLE
     if headA is None or  headB is None:
@@ -114,14 +113,50 @@ def get_intersection(headA: ListNode | None, headB: ListNode | None) -> ListNode
         ptrA = ptrA.next
     return None
 
+def len(head: ListNode | None) -> int:
+    ln = 0
+    t = head
+
+    while t:
+        t = t.next
+        ln += 1
+    return ln
+
+def get_intersection(headA: ListNode | None, headB: ListNode | None) -> ListNode | None :
+    #naive O(n x m) approach
+    #TLE
+    if headA is None or  headB is None:
+        return None
+    ln_a = len(headA)
+    ln_b = len(headB)
+
+    #find the max and difference:
+    if ln_a < ln_b:
+        ptr_mx = headB
+        ptr_mn = headA
+        d = ln_b - ln_a
+    else:
+        ptr_mx = headA
+        ptr_mn = headB
+        d = ln_a - ln_b
+
+    for i in range(d):
+        ptr_mx = ptr_mx.next
+
+    while ptr_mx and ptr_mn and ptr_mx != ptr_mn:
+        ptr_mx = ptr_mx.next
+        ptr_mn = ptr_mn.next
+
+    return ptr_mx
 
 if __name__ == "__main__":
     la = [1, 2, 3, 4]
-    lb = [5,3]
+    lb = [5,6, 3, 6]
     ival = 3
     lla, llb = build_linked_list_with_intersection(ival, la, lb)
 
-    inter = get_intersection_no_mod(lla, llb)
+    inter = get_intersection(lla, llb)
     if inter:
         print(inter.val)
-    print(inter)
+    else:
+        print(inter)
