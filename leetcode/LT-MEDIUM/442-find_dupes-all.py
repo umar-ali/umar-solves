@@ -1,18 +1,21 @@
 def findDuplicates(nums: list[int]) -> list[int]:
     res = []
+    nums.sort()
     ln = len(nums)
-    for i in range(ln):
-        n = nums[i]
-        if n == i + 1:
-            i+=1
-        elif n == nums[n -1]:
-            res.append(n)
+    i = 1
+
+    while i < ln:
+        if nums[i] == nums[i -1]:
+            res.append(nums[i])
+            i+=2
         else:
-            nums[i] = nums[n-1]
-            nums[n-1] = n
+            i+=1
     return res
 
 
+
+
 if __name__ == "__main__":
+    print(findDuplicates([4,3,2,7,8,2,3,1])) #[2, 3]
     print(findDuplicates([5,4,6,7,9,3,10,9,5,6])) #[9, 5, 6]
 
