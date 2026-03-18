@@ -1,1 +1,1 @@
-Repo containing my competitive programming codes
+Just solving problems and getting better.
